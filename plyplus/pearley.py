@@ -1,3 +1,8 @@
+import sys
+is_python3 = sys.version_info.major == 3
+if is_python3:
+    unicode = str
+    
 from .utils import classify
 
 class MatchFailed(object):
@@ -89,7 +94,7 @@ class State(object):
         result.append(self)
 
         if not self.is_complete:
-            for i in xrange(ind):
+            for i in range(ind):
                 state = col[i]
                 if state.is_complete and state.reference == location:
                     x = self.consume_nonterminal(state.rule.name)
@@ -129,7 +134,7 @@ class Parser(object):
             self.advance_to(self.current + chunk_pos + 1, added_rules)
 
             if not self.table[-1]:
-                raise Exception('Error at line {t.line}:{t.column}'.format(t=chunk[chunk_pos]))
+                raise Exception()
 
         self.current += chunk_pos
         self.results = list(self.finish())
